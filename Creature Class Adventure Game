@@ -1,0 +1,335 @@
+class Creature{
+  constructor(name, health) {
+    this.name = name;
+    this.health = health;
+    this.basicAttack = function() {
+      return 3 + Math.floor(Math.random() * 3);
+    };
+  }
+}
+class Player extends Creature{
+  constructor(name,health){
+    super(name,health)
+    this.armor = false
+    this.money = 0
+  } 
+}
+class Warrior extends Player{
+  constructor(name,health){
+    super(name,health)
+    this.normalAttack = function (){
+      return 5 + Math.floor(Math.random() * 3);
+    };
+  }
+}
+class Wizard extends Player{
+  constructor (name, health){
+    super(name,health)
+  this.normalAttack = function (){
+      return 5 + Math.floor(Math.random() * 3);
+    };
+  }
+}
+class Archer extends Player{
+  constructor(name,health){
+  super(name,health)
+  this.normalAttack = function (){
+      return 5 + Math.floor(Math.random() * 3);
+    };
+  }
+}
+
+class Troll extends Creature{
+  constructor(name,health){
+    super(name,health)
+    this.armor = false
+    this.attack = function swingClub(){
+      this.health -= 5
+    }
+  }
+}
+class GiganticTroll extends Creature{
+  constructor(name,health){
+    super(name,health*2)
+    this.armor = true
+    this.attack = function swingTree(){
+      return this.health - 7;
+    };
+  }
+}
+class DemiGod extends Creature{
+  constructor(name,health){
+    super(name,health*3)
+    this.armor = true
+    this.attack = function earthquake(){
+      return this.health - 10;
+    };
+  }
+}
+class Boss extends Creature{
+  constructor(name,health){
+    super(name,health*5);
+    this.armor = false;
+    this.insult = function() {console.log('Do you know who I am??')}
+    this.threaten = function() {console.log("I'm calling the manager")}
+    this.attack = function meltdown(){
+      return this.health - 20;
+    };
+  }
+}
+
+const Ken = new Troll ('Ken the Troll', 100)
+const Chad = new GiganticTroll ('Chad the Gigantic Troll', 100)
+const PaulRudd = new DemiGod ('Paul Rudd, DemiGod', 100) 
+const Karen = new Boss ('Karen THE BOSS', 100);
+
+
+//Code to start the game
+function intro (){
+alert("Hello! Welcome to our adventure game! Here is how you play")
+alert("Your village was under attack and taken over by some of the strongest monsters in the land, and you have been chosen to take back your village and defeat these monsters!")
+alert("The rules are simple. There are 3 monsters and 1 ultimate boss that you will have to defeat in order to save your village and defeat the game. If at any point the monster defeats you, the game is over!")
+alert("You will also learn to use various attack moves and be equipped with the necessary armors/weapons to defeat the monsters along the way.")
+  let intro = prompt("Do you think you have what it takes to take back your village?(Type 'yes' or 'no'")
+ if (intro == "yes"){
+   alert("Your adventure awaits! Let's go!");
+   return Player1 = setup();
+  }else if (intro == "no"){
+   alert("Well, you're a coward! and you let your village down!")
+   alert('Game Over!!');
+   
+ }else{
+   alert("Invalid input");
+   runGame();
+ }
+}
+
+
+//Code to get user's input for Player1
+function setup () {
+  let userNameInput = prompt("What would you like to call your player?");
+  let userClassInput = prompt(`${userNameInput}, do you want to be wizard, archer, or warrior? (case sensitive`);
+  let Player1 = new Player(userNameInput, 100);
+  if (userClassInput == "wizard"){
+    Player1.__proto__ = Wizard.prototype;
+  } else if (userClassInput == "archer"){
+    Player1.__proto__ = Archer.prototype;
+  } else if (userClassInput == "warrior"){
+    Player1.__proto__ = Warrior.prototype;
+  }else {
+    alert('Try Again. Check case sensitivity!')
+    runGame();
+  }
+  
+  return Player1;
+}
+// console.log(Player1)
+// console.log(Object.getOwnPropertyNames(Player1))
+
+//Player should be an object as well that is specific to the player playing and with the item drops that will be gained from each monster win
+
+//Joseph's Code Below
+function fight (boss){
+  alert(`You are fighting ${boss.name}!`);
+  alert(`${boss.name} has ${boss.health} health.`);
+  alert(`You have ${Player1.health} health.`);
+
+  //actual fight within func
+  while (boss.health >0 && Player1.health >0){
+    alert("Do you want to kick");
+    alert("1) some ass. 2) rocks and not fight back? 3) Be defensive and see what the monster has in store for you? 4) Run away!");
+   
+
+    const choice = prompt("Choose your move (1, 2, 3 or 4)");
+
+    if (choice ==="1"){
+    boss.health -= 50;
+    alert(`You attacked ${boss.name} and did 50 damage!!`);
+    alert(`${boss.name} now has strength of ${boss.health}.`);
+    }
+    else if (choice === "2"){
+    Player1.health -= 25;
+    alert(`You chose to kick rocks and not fight back and lost 25 health, smooth.`);
+    alert(`You now have ${Player1.health} health left over, you better get it together!`);
+    } 
+    else if (choice === "3"){
+    Player1.health += 25;
+    boss.health -= 50;
+    alert(`Great move, you waited for the ${boss.name} to strike, and landed a worthy blow. Your health is now ${Player1.health}, and your opponent's is ${boss.health}`)
+    }
+    else if (choice === "4"){
+    Player1.health -= 75
+    alert (`Oh no, never a good idea trying to run from a giant monster looking to kill you. ${Player1.name} lost most of their health.`)
+    }
+    else if(choice != Number){
+      alert('Not an option')
+    }
+    else if(choice >4 || choice <=0){
+      alert('Not an option')
+    }
+  }
+  //// If Player1 health <= 0
+  if (Player1.health <= 0){
+    alert("Game Over!!")
+    runGame()
+  }
+  //// After boss defeat in fight func
+  if (boss.health <= 0){
+    alert(`You defeated ${boss.name}!`);
+    if (boss ===  Ken){
+      Player1.money += 100
+      Player1.armor = true}
+    else if (boss === Chad){
+      Player1.money += 200
+      // Player1.armor = false
+    }
+    else if (boss === PaulRudd){
+      Player1.money += 500
+      Player1.armor = true
+    }
+    else if(boss === Karen){
+      return winner()
+    }
+    alert(`You are now entering the market, before you restock your items, it is imperative you find lodging to restore your health`)
+    Player1.health = 100;
+    alert(`Dreaming of slaying monsters all night did not stop you from getting a full night\'s sleep. You now have full health!`)
+    
+  } //final if closing curly bracket
+} //fight(boss) closing curly bracket
+
+// function fight(input){  //test fight code scenario
+// let playerHealth = Player1.health
+  
+//   alert(`You are fighting a ${input.name}!`);
+//   alert(`You have ${Player1.health} health.`);
+//   alert("Do you want to kick");
+//   alert("1. some ass");
+//  alert("2. rocks and not fight back?");
+
+//   const choice = prompt("Enter choice (1 or 2):");
+//   if (choice === 1){
+//     while (Player1.health >0 && input.health >0){
+      
+//     }
+//   }
+  
+// }
+
+
+function marketplace (){
+  alert(`Welcome to the marketplace. You have had a treacherous journey thus far. Would you like to purchase some supplies?`)
+  let marketplaceEntrance = prompt ("1: Yes or 2: No", []); 
+   if (marketplaceEntrance == "1"){
+  alert(`Great choice! You have ${Player1.money} coins to spend`)
+     marketShopping();
+  } else if (marketplaceEntrance == "2"){
+    alert("Ok, time to move on! Hopefully we don't encounter another monster too soon, since we did not obtain more supplies...")
+     return;
+  } else {
+    alert(`Oops, that was not one of the options`)
+    marketplace(Player1);
+   }
+}
+
+function marketShopping(shopping){
+  alert(`You have ${Player1.money} coins in your wallet. What supplies would you like to purchase?`)
+  let marketChoice = prompt ("1: Small Potion for Extra Health (100 coins) or 2: Medium Potion for Extra Health (200 coins) or 3: Large Potion for Extra Health (300 coins) or 4: No, I want to leave", []);
+   
+  if(marketChoice === "1" && Player1.money < 100) {
+    alert(`Sorry, you can't purchase this item! You only have ${Player1.money} coins in your wallet`);
+    marketShopping (shopping);
+  }
+  if(marketChoice === "1" && Player1.money >= 100) {
+    Player1.money -= 100;
+    Player1.health += 20;
+    alert(`You have purchased a small potion and can use it to boost your health! You now have ${Player1.money} coins left`);
+  }
+
+  if(marketChoice === "2" && Player1.money < 200) {
+    alert(`Sorry, you can't purchase this item! You only have ${Player1.money} coins in your wallet`);
+    marketShopping (shopping);
+  }
+  
+  if(marketChoice === "2" && Player1.money >= 200) {
+    Player1.money -= 200;
+    Player1.health += 40;
+    alert(`You have purchased an medium potion and can use it to boost your health! You now have ${Player1.money} coins left`);
+  }
+
+  if(marketChoice === "3" && Player1.money < 300) {
+    alert(`Sorry, you can't purchase this item! You only have ${Player1.money} coins in your wallet`);
+    marketShopping (shopping);
+  }
+  if(marketChoice === "3" && Player1.money >= 300) {
+    Player1.money -= 300;
+    Player1.health += 60;
+    alert(`You have purchased a large potion and can use it to boost your health! You now have ${Player1.money} coins left`);
+    marketShopping (shopping);
+  }
+  if(marketChoice === "4") {
+    alert(`You leave the market place and start hunting your next foe.`);
+    return;
+  }
+    
+  if(Player1.money <100) {
+    alert(`Since you can no longer afford the wares you decide to leave the marketplace and hunt your next foe.`);
+    return;
+  }
+    
+  else if(marketChoice > 4){
+    alert(`Oops, that was not one of the options`);
+    marketShopping (shopping);
+  }
+}
+
+
+// Joseph again below this line for ending of game
+// let player = new Player("Player", 100)
+// this should follow after our const(s) for bosses
+// while (true){
+//   let defeatedAllBosses = true;
+//   for (const boss of bosses){
+//     player.fight(boss);
+//     if (boss.strength > 0){
+//       defeatedAllBosses = false;
+//       break;
+//     }
+//   }
+// if (defeatedAllBosses){
+//   break;
+// } else if (player.health <= 0){
+//   console.log("You died and better get some pratice in!!");
+//   console.log("Starting the game over.");
+//   player = new Player("Player", 100);
+// }
+  
+// }
+
+// console.log("You won the game!!! Not bad! Do you want to test your luck again?!");
+
+ //end of function curly bracket
+function winner(){
+  alert(`Congratulations! You've saved the village! All will remember your deeds of heroism for ages to come!`)
+}
+
+// Flow of game
+function runGame(){
+intro()
+// console.log(Player1)
+fight(Ken)
+// console.log(Player1)
+marketplace()
+// console.log(Player1)
+fight(Chad)
+// console.log(Player1)  
+marketplace()
+// console.log(Player1)
+fight(PaulRudd)
+// console.log(Player1)
+marketplace()
+// console.log(Player1)
+fight(Karen)
+}
+
+runGame()
+// congrats on winning
