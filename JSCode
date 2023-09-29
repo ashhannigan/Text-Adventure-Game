@@ -1,0 +1,165 @@
+function passFail(){
+  let roll = Math.floor(Math.random() * 100);
+  if (roll >= 50){
+  return true;
+  }
+  else {
+    return false;
+  }
+};
+
+
+  const dayMessages = {
+    A: 'Let\'s play a game!',
+    A1: 'It is 8am, the sun is shining and the birds are chirping. Looks like it\'s going to be a sunny day! Type the number that you would like to do first today! 1: Go to the beach 2: Sleep in  3: Go hiking with friends 4: Visit your family',
+    A2: "OK, have a nice day!",
+    B1: "WOW, luck is on your side, turns out it was just a cub who got lost",
+    B2: "Oh no, unlucky for you, the bear was a mama who felt like you came too close to her cubs and the bear spray made her angry. You end up getting mauled by the bear.",
+    B3: "Here comes mama bear and she looks angry...",
+    B4: "Well..a fellow hiker came across you and your friends. This kind stranger called for help and you are all transported to the hospital. Your adventerous day cannot continue. Wishing you a quick recovery!"
+  };
+
+
+
+//starting game by typing in your name
+  // const begin = confirm('Would you like to play a game?')
+  // if(begin){
+  //   game();
+  // }
+  // else {
+  //   alert("OK have a nice day!")
+  // }
+function game(){
+//provides 4 different choices of how to start the day
+const endOfAdventure = {
+    Z: " It's time for bed! Goodnight",
+    Z1: "You were never heard from again... You some how ended up in the lost city of Atlantis!",
+  }
+let name = prompt ('What is your name', [])
+alert (`Good Morning, ${name} welcome to your Saturday adventure`)
+let dayChoice = prompt (`Type the number that you would like to do first today! 1: Go to the beach, 2: Sleep in, 3: Go hiking, 4: Visit your family`, []);
+//provides 4 different choices of how to start the day
+if (dayChoice == 1){
+  let coolOff = prompt ("After a long time in the sun, you're very sweaty and ready to cool off! Would you like to 1: Jump in the ocean to cool off, 2: Drink a bottle of hot sauce?", []);
+ if (coolOff == 2){
+    let hotSauce = prompt ("Bad choice! Not only are you sweaty but now you pooped your pants too! Not the best decision but now you need to, 1: go buy diapers because you can't walk around pooping your pants, 2: Go home, clean up and call it a day... that Uber cleaning fee is not going to be fun", []);
+    if (hotSauce == 2){
+       alert("You shower and go to bed!");
+    }
+   else if (hotSauce == 1){
+     alert("How could your day get any worse? Welp CVS ran out of diapers. Now you have a panic attack and unfortunately die of a heart attack and , since it's Halloween, you turn into a zombie who has pooped pants for all eternity!");
+   }
+ }
+else if (coolOff == 1) {
+       let turtleAttack = prompt ("While relaxing in the ocean you spot a rock, wait a second.. that's no rock! That's THE Queen of the sea turtle's and she looks angry! She witnessed you bring a plastic bag to the beach! Do you 1: feed her some sea weed, 2: swim away", []);
+ if (turtleAttack == 1){
+    let highFive = prompt ("She gives you a flipper high five and offers you a ride on her shell to cool secret island, do you accept 1: Heck yes, let's go!, 2: No, I don't like having a good time", []);
+     if (highFive == 1){
+    let island = alert ("She accidentaly travels into the Bermuda Triangle and you're never heard from again... dun dun duuuun",[])
+  }
+   else if (highFive == 2){
+     let lame = alert ("You never deserved such an awesome offer from the sea turtle Queen you pesant! Now you are relinquished to your bed for the remainder of the evening, be gone!",[])
+   }
+ }
+  else if (turtleAttack == 2){
+    let boringPerson = alert ("You're so scared you go home and get to bed!",[]);
+  }
+}
+}
+
+   else if (dayChoice == 2){
+    alert ("You slept through the whole week and need to restart again.");
+    game();
+  }
+
+  else if (dayChoice == 3){
+    let bearEncounter = prompt ("You and your friends encounter a bear, what do you do next? 1: Give the bear some honey, 2: Use bear spray 3: Safely leave the area and head home", []);
+      if (bearEncounter == 1){
+      alert(dayMessages.B1)
+      const attack = confirm("Should you coerce the cub into following you?");
+    if (passFail() == true) {
+      alert(dayMessages.B3);
+      alert("I think it's time you head home...You and your friends are not in the mood to get mauled by a bear today.");
+    }
+        else{
+          alert(dayMessages.B3);
+          alert("She gets closer...and closer...and closer...and BOOOM... the last thing you see is this bear charging towards you. Better luck in the after life!")
+        } //try again *function loop
+      }
+    else if (bearEncounter == 2){
+      alert(dayMessages.B2)
+      alert(dayMessages.B4)
+      const nextStepBear = prompt ("You and your friends have a crazy story to tell! But, for now you're in the hospital. Should you 1: sleep the pain away and recover from the attack hoping your friends are okay or 2: call your loved ones", []);
+      if (nextStepBear == 1){
+        alert("**10 days later**.....All of your friends, including yourself thankfully make it out of the hospital in one piece. You are now bonded to them forever from this traumatic experience.....but, will you go hiking again hoping you have better luck? Only time will tell.")
+      }
+      else {
+        alert("You are on the phone with your loved ones when an emergency broadcast comes on the hospital TV...You turn the volume up...You're able to make out the news anchor saying 'Government officials have recommended that all citizens within the affected radius remain indoors' before the channel goes to static... The entire hospital breaks into complete chaos.")
+        const hospitalBear = prompt ("Should you 1: Quickly find and gather your friends? Or 2: Attempt to leave the hospital and head home, despite being injured? Is there a right choice or a wrong choice...As you are debating your choice you realize the chaos in the hospital is because this is where the outbreak started", []);
+        if(passFail() == true){
+          alert("You fight your way out even though you are severly injured from the bear attack....hoping you can make it to your family on time...")
+        }
+        else {
+          alert("The zombies are closing in......and....you were too injured to fight back. Let's hope your family and friends can survive this. Best of luck as a zombie..?")
+        }
+      }
+    }
+    else if (bearEncounter ==3){
+      alert("You and your friends made the right choice. You decide to head home. Later that day on the news you hear of several bear attacks on the same trail you and your friends were hiking. That night you decide to celebrate your good luck...What kind of adventure will Sunday bring...?")
+    }
+  }
+
+  //if user decides to visit family
+else if (dayChoice == 4){
+  alert("After a great morning spent with you're family, you are ready to head home and take an afternoon nap.")
+   let tv = prompt("When you get home you hear the sound of the tv playing in the     background. You must have forgot to turn it off earlier. As you go to turn off the   television you catch the end of a breaking news broadcast. Do you listen to the broadcast? 1: Yes, 2: No", []);
+  
+  //Listen to the tv
+  if (tv == 1){
+    alert("This sounds important. You're able to make out the news anchor saying 'Government officials have recommended that all citizens within the affected radius remain indoors' before the channel goes to static.")
+    let goOutdoors = prompt("You pick up your phone to call your family but the phone line is dead. Do you venture outdoors to check on your family? 1: Yes, 2: No", [])
+    
+    //Go outdoors
+    if (goOutdoors == 1) {
+      alert("When you go outside you see your neighbor Jim hunched over, working at something in his garden. You call out to Jim to say hello, and as Jim turns in your direction, you realize Jim is a ZOMBIE! You quickly run towards the safety of your car as Jim lurches towards you.")
+      
+      if (passFail() == true){
+        alert("You slam the door to your car just in time and drive away to the safety of your family's house. You look in your review mirror one last time as the sun begins to set over the horizon.");
+      }
+        
+      else {
+        alert(`Having not taken a nap, you just didn't have the energy to outrun Jim the Zombie. The sun sets over your lifeless body. Game over, ${name}!`);
+        }
+    }
+    
+      // Don't go outdoors
+    else {
+      alert("Best to listen to the news and stay indoors...without warning, your front door burst open! It is your friendly neighbor, Jim. You begin to say, 'Thank goodness you're here!' before you realize something is very wrong with Jim. Jim is a ZOMBIE! He suddenly lurches towards you. You pick up your prized bowling trophy to hit Jim over the head.")
+      
+      if (passFail() == true){
+        alert("You successfully hit Jim over the head with the bowling trophy and stop the attack. You are able to barricade your house to stay in safety. As the sun sets, you light a fire in your fireplace to stay warm.")
+      }
+      
+      else {
+        alert(`Your flight reflex is strong than your fight reflex! As you turn to run unable to work up the nerve to attack, you trip over your own feet and are eaten by Jim the Zombie. The house slowly grows dark as the sunsets outside. Game over, ${name}!`)
+      }
+    }
+  }
+  
+    //Don't listen to the broadcast
+   else {
+     alert("Who has time for the news when it's nap time?! You turn off your tv to take your long awaited afternoon nap.");
+     alert("When you wake up the sun is already beginning to set. You try to turn on the lights but they don't work. Suddenly your front door burst open. It's your friendly neighbor, Jim! You begin to say hello when you realize there is something very wrong with Jim. Jim is a ZOMBIE! He suddenly lurches towards you. You start to reach for your prized bowling trophy to hit Jim over the head with, but decide your karoke trophy would be heavier.");
+     
+     if (passFail() == true) {
+       alert("You belt out in your highest octave as you successfully hit Jim over the head and stop the attack. You are able to barricade your house to stay in safety. You light a fire in your fireplace as the last bit of sun sets over the horizon.")
+     }
+     
+     else {
+     alert(`Maybe you should have went with the bowling trophy afterall...the cheap karaoke trophy snaps in half as you hit Jim over the head, barely grazing him. Jim the Zombie begins to eat you as the last of the sun sets over the horizon. Game over, ${name}!`);
+     }
+   }
+}
+}
+
+game();
